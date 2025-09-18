@@ -15,7 +15,7 @@ public class BaseTest {
     protected Page page;
 
     private static final String BROWSER_TYPE = System.getProperty("browser", "chromium");
-    private static final boolean HEADLESS = Boolean.parseBoolean(System.getProperty("headless", "false"));
+    private static final boolean HEADLESS = Boolean.parseBoolean(System.getProperty("headless", "true"));
     private static final String BASE_URL = System.getProperty("baseUrl", "https://playwright.dev");
 
     @BeforeClass

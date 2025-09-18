@@ -29,6 +29,12 @@ on:
           - regression
           - all
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+  actions: read
+
 jobs:
   test:
     name: Run Playwright Tests
@@ -112,6 +118,10 @@ jobs:
     needs: test
     if: always()
 
+    environment:          # 👈 required for GitHub Pages deployments
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -127,19 +137,17 @@ jobs:
           find artifacts -name "allure-results*" -type d -exec cp -r {}/* merged-results/ \; 2>/dev/null || true
 
       - name: Generate Combined Allure Report
-        uses: simple-elf/allure-report-action@master
-        if: always()
-        with:
-          allure_results: merged-results
-          allure_report: allure-report
-          gh_pages: gh-pages
-          allure_history: allure-history
-          keep_reports: 20
+        run: |
+          mvn io.qameta.allure:allure-maven:report -Dallure.results.directory=merged-results
 
-      - name: Publish to GitHub Pages
-        if: always()
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: allure-history
-          publish_branch: gh-pages
+          path: target/site/allure-maven-plugin   # 👈 this is where Allure generates the HTML report
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
