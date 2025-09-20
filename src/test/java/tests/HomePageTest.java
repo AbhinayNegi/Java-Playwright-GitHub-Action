@@ -4,15 +4,12 @@ import base.BaseTest;
 import io.qameta.allure.Description;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.HomePage;
 
 public class HomePageTest extends BaseTest {
 
-    @Test(priority = 1, groups = {"smoke", "regression"})
+    @Test
     @Description("Verify that home page loads correctly and displays expected elements")
     public void testHomePageLoad() {
-        HomePage homePage = new HomePage(page);
-
         Assert.assertTrue(homePage.isHomePageLoaded(),
                 "Home page should be loaded with expected elements");
 
@@ -23,11 +20,9 @@ public class HomePageTest extends BaseTest {
         takeScreenshot("home_page_loaded");
     }
 
-    @Test(priority = 2, groups = {"smoke"})
+    @Test
     @Description("Verify navigation to Get Started page")
     public void testGetStartedNavigation() {
-        HomePage homePage = new HomePage(page);
-
         homePage.clickGetStarted();
         waitFor(2);
 
@@ -38,11 +33,9 @@ public class HomePageTest extends BaseTest {
         takeScreenshot("get_started_page");
     }
 
-    @Test(priority = 3, groups = {"regression"})
+    @Test
     @Description("Verify navigation to Docs page")
     public void testDocsNavigation() {
-        HomePage homePage = new HomePage(page);
-
         homePage.clickDocs();
         waitFor(2);
 
@@ -53,11 +46,9 @@ public class HomePageTest extends BaseTest {
         takeScreenshot("docs_page");
     }
 
-    @Test(priority = 4, groups = {"regression"})
+    @Test
     @Description("Verify navigation to API page")
     public void testAPINavigation() {
-        HomePage homePage = new HomePage(page);
-
         homePage.clickAPI();
         waitFor(2);
 
@@ -68,11 +59,9 @@ public class HomePageTest extends BaseTest {
         takeScreenshot("api_page");
     }
 
-    @Test(priority = 5, groups = {"smoke", "regression"})
+    @Test
     @Description("Verify search functionality works")
     public void testSearchFunctionality() {
-        HomePage homePage = new HomePage(page);
-
         // Navigate to docs first to access search
         homePage.clickDocs();
         waitFor(2);

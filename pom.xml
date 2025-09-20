@@ -67,7 +67,7 @@
                 <version>${maven.surefire.version}</version>
                 <configuration>
                     <suiteXmlFiles>
-                        <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
+                        <suiteXmlFile>src/test/suites/testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
                     <systemPropertyVariables>
                         <allure.results.directory>target/allure-results</allure.results.directory>

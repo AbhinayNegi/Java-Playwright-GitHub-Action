@@ -5,6 +5,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import pages.HomePage;
 
 import java.nio.file.Paths;
 
@@ -13,6 +14,8 @@ public class BaseTest {
     protected Browser browser;
     protected BrowserContext context;
     protected Page page;
+
+    protected HomePage homePage;
 
     private static final String BROWSER_TYPE = System.getProperty("browser", "chromium");
     private static final boolean HEADLESS = Boolean.parseBoolean(System.getProperty("headless", "true"));
@@ -47,6 +50,12 @@ public class BaseTest {
         // Create new page for each test
         page = context.newPage();
         page.navigate(BASE_URL);
+
+        initializePageObjects();
+    }
+
+    public void initializePageObjects() {
+        homePage = new HomePage(page);
     }
 
     @AfterMethod
