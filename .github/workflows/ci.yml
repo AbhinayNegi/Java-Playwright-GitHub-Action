@@ -69,19 +69,19 @@ jobs:
       - name: Run smoke tests
         if: github.event.inputs.test_suite == 'smoke'
         run: |
-          mvn test -Dbrowser=${{ matrix.browser }} -Dheadless=true -Dgroups=smoke
+          mvn test -Psmoke -Dbrowser=${{ matrix.browser }} -Dheadless=true
         continue-on-error: true
 
       - name: Run regression tests
         if: github.event_name == 'schedule' || github.event.inputs.test_suite == 'regression'
         run: |
-          mvn test -Dbrowser=${{ matrix.browser }} -Dheadless=true -Dgroups=regression
+          mvn test -Pall -Dbrowser=${{ matrix.browser }} -Dheadless=true
         continue-on-error: true
 
       - name: Run all tests
         if: github.event_name == 'push' || github.event.inputs.test_suite == 'all'
         run: |
-          mvn test -Dbrowser=${{ matrix.browser }} -Dheadless=true
+          mvn test -Pall -Dbrowser=${{ matrix.browser }} -Dheadless=true
         continue-on-error: true
 
       - name: Upload Allure Results

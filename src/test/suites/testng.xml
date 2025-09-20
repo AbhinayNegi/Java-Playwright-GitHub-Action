@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 
-<suite name="PlaywrightAutomationSuite" verbose="1" parallel="false">
+<suite name="PlaywrightAutomationSuite" verbose="1" parallel="tests" thread-count="2">
 
     <!-- Test parameters -->
     <parameter name="browser" value="chromium"/>
@@ -12,9 +12,33 @@
         <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
     </listeners>
 
-    <test name="AllTests">
+    <test name="HomePageTest">
         <classes>
             <class name="tests.HomePageTest"/>
+        </classes>
+    </test>
+
+    <test name="ApiNavigationTest">
+        <classes>
+            <class name="tests.ApiNavigationTest"/>
+        </classes>
+    </test>
+
+    <test name="Document navigation test">
+        <classes>
+            <class name="tests.DocNavigationTest"/>
+        </classes>
+    </test>
+
+    <test name="Get Started Navigation test">
+        <classes>
+            <class name="tests.GetStartedNavigationTest"/>
+        </classes>
+    </test>
+
+    <test name="Search feature test">
+        <classes>
+            <class name="tests.SearchFeatureTest"/>
         </classes>
     </test>
 

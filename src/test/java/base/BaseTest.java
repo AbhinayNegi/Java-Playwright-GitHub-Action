@@ -21,7 +21,7 @@ public class BaseTest {
     private static final boolean HEADLESS = Boolean.parseBoolean(System.getProperty("headless", "true"));
     private static final String BASE_URL = System.getProperty("baseUrl", "https://playwright.dev");
 
-    @BeforeClass
+    @BeforeClass(alwaysRun = true)
     public void setUp() {
         // Create Playwright instance
         playwright = Playwright.create();
@@ -45,7 +45,7 @@ public class BaseTest {
                 .setSources(true));
     }
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void setUpTest() {
         // Create new page for each test
         page = context.newPage();
@@ -58,14 +58,14 @@ public class BaseTest {
         homePage = new HomePage(page);
     }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void tearDownTest() {
         if (page != null) {
             page.close();
         }
     }
 
-    @AfterClass
+    @AfterClass(alwaysRun = true)
     public void tearDown() {
         // Stop tracing and save
         if (context != null) {
